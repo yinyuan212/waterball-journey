@@ -1,0 +1,65 @@
+package com.waterball.ch1.showdown;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
+public class Card {
+
+    private Suit suit;
+    private Rank rank;
+
+    public enum Suit {
+        SPADE('♠'),
+        HEART('♥'),
+        DIAMOND('♦'),
+        CLUB('♣');
+
+        private final char representation;
+
+        Suit(char representation) {
+            this.representation = representation;
+        }
+
+    }
+
+    public enum Rank {
+        TWO(2),
+        THREE(3),
+        FOUR(4),
+        FIVE(5),
+        SIX(6),
+        SEVEN(7),
+        EIGHT(8),
+        NINE(9),
+        TEN(10),
+        JACK(11),
+        QUEEN(12),
+        KING(13),
+        ACE(14);
+
+        private int value;
+
+        private Rank(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public boolean isBiggerThan(Card other) {
+        if (this.getRank() == other.getRank()) {
+            return this.getSuit().representation > other.getSuit().representation;
+        }
+
+        return this.getRank().getValue() > other.getRank().getValue();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s:%d", suit, rank.getValue());
+    }
+}
