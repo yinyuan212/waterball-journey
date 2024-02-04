@@ -12,4 +12,10 @@ public class MatchmakingSystem {
         this.matchmakingStrategy = matchmakingStrategy;
         this.people = people;
     }
+
+    public void match(Individual ind) {
+        Individual matched = matchmakingStrategy.findTheMostMatched(ind, people);
+        ind.setMatched(matched);
+        System.out.println(ind.getId() + " matched with " + matched.getId());
+    }
 }

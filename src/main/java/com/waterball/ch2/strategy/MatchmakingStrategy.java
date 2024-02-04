@@ -1,6 +1,8 @@
 package com.waterball.ch2.strategy;
 
+import java.util.List;
+
 public interface MatchmakingStrategy {
 
-    void matchmaking(Individual male, Individual female);
+    Individual findTheMostMatched(Individual ind, List<Individual> people);
 }
