@@ -47,27 +47,25 @@ public class Uno {
     }
 
     private void playRound() {
-        while (true) {
-            for (Player player : players) {
-                Card cardFromPlayer = player.showCard(currentCard);
-                if (cardFromPlayer == null) {
-                    System.out.println(player.getName() + " pass");
-                    Card newCardFromDeck = deck.drawCard();
-                    player.addHand(newCardFromDeck);
-                } else {
-                    usedCards.add(cardFromPlayer);
-                    currentCard = cardFromPlayer;
-                }
+        for (Player player : players) {
+            Card cardFromPlayer = player.showCard(currentCard);
+            if (cardFromPlayer == null) {
+                System.out.println(player.getName() + " pass");
+                Card newCardFromDeck = deck.drawCard();
+                player.addHand(newCardFromDeck);
+            } else {
+                usedCards.add(cardFromPlayer);
+                currentCard = cardFromPlayer;
+            }
 
-                if (player.getHand().getCards().size() == 0) {
-                    System.out.println(player.getName() + " wins!");
-                    return;
-                }
+            if (player.getHand().getCards().size() == 0) {
+                System.out.println(player.getName() + " wins!");
+                return;
+            }
 
-                if (deck.getCardStack().isEmpty()) {
-                    deck.shuffleUsedCards(usedCards);
-                    usedCards = new ArrayList<>();
-                }
+            if (deck.getCardStack().isEmpty()) {
+                deck.shuffleUsedCards(usedCards);
+                usedCards = new ArrayList<>();
             }
         }
     }

@@ -9,9 +9,9 @@ public class Main {
         Deck deck = Deck.init52Cards();
         List<Player> players = Arrays.asList(
                 new HumanPlayer(),
-                new AIPLayer(),
-                new AIPLayer(),
-                new AIPLayer()
+                new AIPlayer(),
+                new AIPlayer(),
+                new AIPlayer()
         );
 
         Showdown showdown = new Showdown(deck, players);

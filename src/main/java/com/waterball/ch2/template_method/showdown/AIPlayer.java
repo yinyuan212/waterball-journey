@@ -1,6 +1,6 @@
 package com.waterball.ch2.template_method.showdown;
 
-public class AIPLayer extends Player {
+public class AIPlayer extends Player {
 
     @Override
     public void nameHimSelf(int i) {
