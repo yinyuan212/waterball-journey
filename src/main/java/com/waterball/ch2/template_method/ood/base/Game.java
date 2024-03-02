@@ -9,8 +9,6 @@ public abstract class Game<Player extends com.waterball.ch2.template_method.ood.
 
     protected final List<Player> players;
 
-    protected int round = 0;
-
     public Game(Deck deck, List<Player> players) {
         this.deck = deck;
         this.players = players;

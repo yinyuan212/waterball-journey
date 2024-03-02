@@ -11,6 +11,8 @@ public class Showdown extends Game<Player, ShowdownCard> {
         super(deck, players);
     }
 
+    private int round = 0;
+
     @Override
     public void beforeGameStart() {
         System.out.println("showdown start!");
@@ -45,7 +47,6 @@ public class Showdown extends Game<Player, ShowdownCard> {
                 winner = player;
             }
         }
-
 
         return winner;
     }
