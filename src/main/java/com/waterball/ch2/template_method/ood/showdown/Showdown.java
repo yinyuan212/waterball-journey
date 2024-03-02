@@ -12,16 +12,6 @@ public class Showdown extends Game<Player, ShowdownCard> {
     }
 
     @Override
-    public void drawHand() {
-        //fixme:　這邊重複程式碼了
-        for (int i = 0; i < 13; i++) {
-            for (Player player : players) {
-                player.addHand(deck.drawCard());
-            }
-        }
-    }
-
-    @Override
     public void beforeGameStart() {
         System.out.println("showdown start!");
     }
@@ -58,5 +48,10 @@ public class Showdown extends Game<Player, ShowdownCard> {
 
 
         return winner;
+    }
+
+    @Override
+    public int getNumberOfHand() {
+        return 13;
     }
 }

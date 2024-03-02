@@ -15,14 +15,6 @@ public class Uno extends Game<Player, UnoCard> {
         super(deck, players);
     }
 
-    @Override
-    public void drawHand() {
-        for (int i = 0; i < 5; i++) {
-            for (Player player : players) {
-                player.addHand(deck.drawCard());
-            }
-        }
-    }
 
     @Override
     public void beforeGameStart() {
@@ -65,5 +57,10 @@ public class Uno extends Game<Player, UnoCard> {
     @Override
     public Player getWinner() {
         return currentPlayer;
+    }
+
+    @Override
+    public int getNumberOfHand() {
+        return 5;
     }
 }
