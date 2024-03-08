@@ -1,7 +1,5 @@
 package com.waterball.ch2.template_method.ood.showdown;
 
-import com.waterball.ch2.template_method.ood.base.Card;
-
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
@@ -15,7 +13,7 @@ public class HumanPlayer extends Player {
     }
 
     @Override
-    public Card showCard() {
+    public ShowdownCard showCard() {
         for (int i = 0; i < getHand().getCards().size(); i++) {
             System.out.println(String.format("%d: %s", i, getHand().getCards().get(i)));
         }

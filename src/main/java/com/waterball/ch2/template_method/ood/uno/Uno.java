@@ -18,7 +18,7 @@ public class Uno extends Game<Player, UnoCard> {
 
     @Override
     public void beforeGameStart() {
-        UnoCard card = (UnoCard) deck.drawCard();
+        UnoCard card = deck.drawCard();
         usedCards.add(card);
         currentCard = card;
         currentPlayer = players.get(0);
@@ -36,7 +36,7 @@ public class Uno extends Game<Player, UnoCard> {
             UnoCard cardFromPlayer = player.showCard(currentCard);
             if (cardFromPlayer == null) {
                 System.out.println(player.getName() + " pass");
-                UnoCard newCardFromDeck = (UnoCard) deck.drawCard();
+                UnoCard newCardFromDeck = deck.drawCard();
                 player.addHand(newCardFromDeck);
             } else {
                 usedCards.add(cardFromPlayer);

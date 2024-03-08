@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Hand<Card extends com.waterball.ch2.template_method.ood.base.Card> {
+public class Hand<Card> {
 
     private final List<Card> cards = new ArrayList<>();
 

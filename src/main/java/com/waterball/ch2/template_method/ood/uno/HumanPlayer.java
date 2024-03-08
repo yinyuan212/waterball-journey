@@ -1,6 +1,5 @@
 package com.waterball.ch2.template_method.ood.uno;
 
-import com.waterball.ch2.template_method.uno.Card;
 
 import java.util.Scanner;
 
@@ -22,7 +21,7 @@ public class HumanPlayer extends Player {
 
         System.out.println("cards in hand: ");
         for (int i = 0; i < getHand().getCards().size(); i++) {
-            UnoCard cardInHand = (UnoCard) getHand().getCards().get(i);
+            UnoCard cardInHand = getHand().getCards().get(i);
             if (cardInHand.getColor() == card.getColor() || cardInHand.getNumber() == card.getNumber()) {
                 cadShowCardInHand = true;
                 System.out.println(String.format("%d: %s", i, cardInHand));
@@ -32,7 +31,7 @@ public class HumanPlayer extends Player {
         if (cadShowCardInHand) {
             Scanner scanner = new Scanner(System.in);
             int i = scanner.nextInt();
-            return (UnoCard) getHand().showCard(i);
+            return getHand().showCard(i);
         } else {
             return null;
         }

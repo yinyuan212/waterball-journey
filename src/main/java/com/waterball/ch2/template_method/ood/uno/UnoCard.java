@@ -1,12 +1,9 @@
 package com.waterball.ch2.template_method.ood.uno;
 
-import com.waterball.ch2.template_method.ood.base.Card;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class UnoCard extends Card {
+public class UnoCard {
 
     private Color color;
     private int number;

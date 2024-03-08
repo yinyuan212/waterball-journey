@@ -1,9 +1,8 @@
 package com.waterball.ch2.template_method.ood.showdown;
 
-import com.waterball.ch2.template_method.ood.base.Card;
 
 
-public abstract class Player extends com.waterball.ch2.template_method.ood.base.Player<Card> {
+public abstract class Player extends com.waterball.ch2.template_method.ood.base.Player<ShowdownCard> { // 實作層，在原本泛型的位置，放入實際要用的class
 
     private int point;
 
@@ -14,7 +13,7 @@ public abstract class Player extends com.waterball.ch2.template_method.ood.base.
 
     public abstract void nameHimself(int i);
 
-    public abstract Card showCard();
+    public abstract ShowdownCard showCard();
 
 
     public void gainPoint() {
