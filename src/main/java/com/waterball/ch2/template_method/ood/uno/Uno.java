@@ -15,18 +15,10 @@ public class Uno extends Game<Player, UnoCard> {
         super(deck, players);
     }
 
-    @Override
-    public void drawHand() {
-        for (int i = 0; i < 5; i++) {
-            for (Player player : players) {
-                player.addHand(deck.drawCard());
-            }
-        }
-    }
 
     @Override
     public void beforeGameStart() {
-        UnoCard card = (UnoCard) deck.drawCard();
+        UnoCard card = deck.drawCard();
         usedCards.add(card);
         currentCard = card;
         currentPlayer = players.get(0);
@@ -44,7 +36,7 @@ public class Uno extends Game<Player, UnoCard> {
             UnoCard cardFromPlayer = player.showCard(currentCard);
             if (cardFromPlayer == null) {
                 System.out.println(player.getName() + " pass");
-                UnoCard newCardFromDeck = (UnoCard) deck.drawCard();
+                UnoCard newCardFromDeck = deck.drawCard();
                 player.addHand(newCardFromDeck);
             } else {
                 usedCards.add(cardFromPlayer);
@@ -65,5 +57,10 @@ public class Uno extends Game<Player, UnoCard> {
     @Override
     public Player getWinner() {
         return currentPlayer;
+    }
+
+    @Override
+    public int getNumberOfHand() {
+        return 5;
     }
 }

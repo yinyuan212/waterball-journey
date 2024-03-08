@@ -6,20 +6,12 @@ import com.waterball.ch2.template_method.ood.base.Game;
 
 import java.util.List;
 
-public class Showdown extends Game<Player, ShowdownCard> {
+public class Showdown extends Game<Player, ShowdownCard> { // 實作層，在原本泛型的位置，放入實際要用的class
     public Showdown(Deck deck, List<Player> players) {
         super(deck, players);
     }
 
-    @Override
-    public void drawHand() {
-        //fixme:　這邊重複程式碼了
-        for (int i = 0; i < 13; i++) {
-            for (Player player : players) {
-                player.addHand(deck.drawCard());
-            }
-        }
-    }
+    private int round = 0;
 
     @Override
     public void beforeGameStart() {
@@ -37,7 +29,7 @@ public class Showdown extends Game<Player, ShowdownCard> {
         //fixme: 用turn有破壞抽象，要改，並抽出for players
         Turn turn = new Turn(players);
         for (Player player : players) {
-            turn.addCard((ShowdownCard) player.showCard());
+            turn.addCard(player.showCard());
         }
 
         Player player = turn.winThisTurn();
@@ -56,7 +48,11 @@ public class Showdown extends Game<Player, ShowdownCard> {
             }
         }
 
-
         return winner;
+    }
+
+    @Override
+    public int getNumberOfHand() {
+        return 13;
     }
 }

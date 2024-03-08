@@ -1,7 +1,5 @@
 package com.waterball.ch2.template_method.ood.showdown;
 
-import com.waterball.ch2.template_method.ood.base.Card;
-
 public class AIPlayer extends Player{
     @Override
     public void nameHimself(int i) {
@@ -11,7 +9,7 @@ public class AIPlayer extends Player{
     }
 
     @Override
-    public Card showCard() {
+    public ShowdownCard showCard() {
         int size = getHand().getCards().size();
         int random = (int) (Math.random() * size);
         return getHand().showCard(random);

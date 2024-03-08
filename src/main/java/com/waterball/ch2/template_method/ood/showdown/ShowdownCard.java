@@ -1,11 +1,9 @@
 package com.waterball.ch2.template_method.ood.showdown;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class ShowdownCard extends com.waterball.ch2.template_method.ood.base.Card {
+public class ShowdownCard {
 
     private Suit suit;
     private Rank rank;

@@ -1,12 +1,9 @@
 package com.waterball.ch2.template_method.ood.uno;
 
-import com.waterball.ch2.template_method.uno.Card;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class AIPlayer extends Player{
+public class AIPlayer extends Player {
 
     @Override
     public void nameHimself(int i) {
@@ -22,7 +19,7 @@ public class AIPlayer extends Player{
 
         System.out.println(getName() + " cards in hand: ");
         for (int i = 0; i < getHand().getCards().size(); i++) {
-            UnoCard cardInHand = (UnoCard)getHand().getCards().get(i);
+            UnoCard cardInHand = getHand().getCards().get(i);
             if (cardInHand.getColor() == card.getColor() || cardInHand.getNumber() == card.getNumber()) {
                 canShowCards.add(i);
                 System.out.println(String.format("%d: %s", i, cardInHand));
@@ -31,7 +28,7 @@ public class AIPlayer extends Player{
 
         if (canShowCards.size() > 0) {
             int random = (int) (Math.random() * canShowCards.size());
-            return (UnoCard) getHand().showCard(canShowCards.get(random));
+            return getHand().showCard(canShowCards.get(random));
         } else {
             return null;
         }
