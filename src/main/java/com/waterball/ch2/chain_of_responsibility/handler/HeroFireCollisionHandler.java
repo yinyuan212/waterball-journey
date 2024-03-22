@@ -11,10 +11,7 @@ public class HeroFireCollisionHandler extends CollisionHandler {
     }
 
     @Override
-    protected void handleCollision(int x1, int x2, Sprite[] sprites) {
-        Sprite c1 = sprites[x1];
-        Sprite c2 = sprites[x2];
-
+    protected void handleCollision(Sprite c1, Sprite c2, int x1, int x2, Sprite[] sprites) {
 
         if (c1 instanceof Hero && c2 instanceof Fire) {
             System.out.println("Collision between hero and fire. Hero is attacked.");

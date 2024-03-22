@@ -8,19 +8,13 @@ public class Main {
 
     public static void main(String[] args) {
         World world = new World(
-                new DefaultCollisionHandler(
-                    new WaterFireCollisionHandler(
-                            new WaterWaterCollisionHandler(
-                                    new FireFireCollisionHandler(
-                                            new HeroFireCollisionHandler(
-                                                    new HeroHeroCollisionHandler(
-                                                            new HeroWaterCollisionHandler(null)
-                                                    )
-                                            )
-                                    )
+                    new SameSpriteCollisionHandler(
+                            new WaterFireCollisionHandler(
+                                    new HeroFireCollisionHandler(
+                                                new HeroWaterCollisionHandler(null)
+                                        )
                             )
                     )
-                )
         );
 
         Scanner scanner = new Scanner(System.in);
