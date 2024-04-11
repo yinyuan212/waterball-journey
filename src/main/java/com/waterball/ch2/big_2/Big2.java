@@ -12,7 +12,7 @@ public class Big2 {
     private int round = 1;
     private List<Card> topPlay = null;
     private Player topPlayer = null;
-    private int topPlayerIndex = 0;
+    private String topPatternName = "";
 
     public Big2(List<Player> players, Deck deck) {
         this.players = players;
@@ -67,28 +67,41 @@ public class Big2 {
     }
 
     private void play() {
+        int turn = -1;
+        int passCount = 0;
         while (true) {
 
-            System.out.println(String.format("Round %d starts.", round));
-
-            for (int i = 0; i < 4; i++) {
-                Player player = players.get(i);
-                List<Card> cardsToPlay = player.play(round, i, topPlay);
-                if (cardsToPlay != null) {
-                    topPlay = cardsToPlay;
-                    topPlayer = player;
-                    topPlayerIndex = i;
-                }
-
-                if (player.getHandCards().isEmpty()) {
-                    System.out.println(String.format("Player %s wins", topPlayer.getName()));
-                    return;
-                }
+            boolean isNewRound = passCount == 3;
+            if (isNewRound) {
+                System.out.println(String.format("Round %d starts.", round));
+                topPlay = null;
+                topPatternName = "";
+                round++;
             }
 
-            topPlay = null;
-            topPlayer = null;
-            round++;
+            turn++;
+
+            Player player = players.get(turn % 4);
+            CardPatternResult cardPatternResult = player.play(round, topPlay, topPatternName);
+            String result = cardPatternResult.getResult();
+
+            // 有打出對的牌
+            if ("carsToPlay_WIN".equals(result)) {
+                topPlay = cardPatternResult.getTopPlay();
+                topPlayer = player;
+                topPatternName = cardPatternResult.getTopPlayName();
+                passCount = 0;
+
+            }
+            // 玩家 pass
+            else if ("PASS".equals(result)) {
+                passCount++;
+            }
+
+            if (player.getHandCards().isEmpty()) {
+                System.out.println(String.format("Player %s wins", topPlayer.getName()));
+                return;
+            }
         }
     }
 }

@@ -9,12 +9,18 @@ public class Pair extends CardPattern {
     }
 
     @Override
-    public String getCardPatternName(List<Card> cards) {
-        return null;
+    protected String getPatternName(List<Card> cardsToPlay) {
+        if (cardsToPlay.size() == 2 &&
+        cardsToPlay.get(0).getRank().ordinal() == cardsToPlay.get(1).getRank().ordinal()) {
+            return "Pair";
+        }
+
+        return "";
     }
 
+
     @Override
-    public boolean compare(List<Card> cards1, List<Card> cards2) {
+    public boolean compare(List<Card> cardsToPlay, List<Card> topPlay) {
         return true;
     }
 

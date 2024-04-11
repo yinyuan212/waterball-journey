@@ -1,5 +1,7 @@
 package com.waterball.ch2.big_2;
 
+
+
 import java.util.List;
 
 public abstract class CardPattern {
@@ -10,34 +12,89 @@ public abstract class CardPattern {
         this.next = next;
     }
 
+
     /**
-     * 1. topPlay是什麼牌型
-     * 2. cardsToPlay的牌型是否跟topPlay一樣
-     * 3. cardsToPlay是否大於topPlay
-     *        3.1 一cardsToPlay大於topPlay，回傳true
-     *        3.2 一cardsToPlay小於topPlay，回傳false
+     * 1. cardsToPlay為空List，代表打pass
+     *      1.a. topPlay是null，是第一輪，不能pass
+     *      1.b. topPlay不是null，可以pass
+     *
+     * 2. cardsToPlay是哪種有效牌型
+     *      2.a. 是有效牌型，return 牌型名稱
+     *      2.b. 不是有效牌型，用下一個handler判斷
+     *
+     * 3. topPlay跟cardsToPlay是一樣的牌型嗎
+ *          3.a. topPlay的牌型(由參數傳入)是空字串
+     *          3.a.1. cardsToPlay變成頂牌
+ *          3.b. topPlay的牌型(由參數傳入)不是空字串
+     *          3.b.1 topPlay跟cardsToPlay是一樣牌型，比較大小
+     *          3.b.2 topPlay跟cardsToPlay不是一樣牌型，用下一個handler判斷
+     * 4. 都不是有效牌型，重打
+     *
      */
-    public boolean isCardsToPlayBiggerThanTopPay(int round, int playerIndex, List<Card> topPlay, List<Card> cardsToPlay) {
+    public CardPatternResult handle(int round, List<Card> cardsToPlay, List<Card> topPlay, String topPlayPatternName) {
 
-        String topPlayPattern = getCardPatternName(topPlay);
-        String cardsToPlayPattern = getCardPatternName(cardsToPlay);
 
-        if (canHandle(topPlayPattern, cardsToPlayPattern)) {
-            if (compare(topPlay, cardsToPlay)) {
-                return true;
-            }
 
-            next.isCardsToPlayBiggerThanTopPay(round, playerIndex, topPlay, cardsToPlay);
+        CardPatternResult cardPatternResult = new CardPatternResult();
+        cardPatternResult.setTopPlay(topPlay);
+
+        // 第一回合的第一輪，一定要打梅花3
+        if (round == 1 && topPlay == null && !cardsToPlay.stream().anyMatch(card -> card.getRank() == Card.Rank.R3 && card.getSuit() == Card.Suit.CLUB)) {
+            cardPatternResult.setResult("REPLAY");
+            return cardPatternResult;
         }
-        return false;
+
+        if (cardsToPlay.isEmpty()) {
+            // 不能pass的情境
+            if (topPlay == null) {
+                cardPatternResult.setResult("REPLAY");
+                return cardPatternResult;
+            // 可以pass的情境
+            } else {
+                cardPatternResult.setResult("PASS");
+                return cardPatternResult;
+            }
+        }
+
+        // cardsToPlay非有效牌型，
+        String cardsToPlayPatternName = getPatternName(cardsToPlay);
+        if ("".equals(cardsToPlayPatternName)) {
+            if (next != null) {
+                return next.handle(round, cardsToPlay, topPlay, topPlayPatternName);
+            }
+        }
+
+        if ("".equals(topPlayPatternName)) {
+            cardPatternResult.setTopPlayName(cardsToPlayPatternName);
+            cardPatternResult.setTopPlay(cardsToPlay);
+            cardPatternResult.setResult("carsToPlay_WIN");
+            return cardPatternResult;
+        } else if (cardsToPlayPatternName.equals(topPlayPatternName)) {
+            if(compare(cardsToPlay, topPlay)) {
+                cardPatternResult.setTopPlayName(cardsToPlayPatternName);
+                cardPatternResult.setTopPlay(cardsToPlay);
+                cardPatternResult.setResult("carsToPlay_WIN");
+                return cardPatternResult;
+            } else {
+                cardPatternResult.setResult("REPLAY");
+                return cardPatternResult;
+            }
+        } else if (next != null) {
+            return next.handle(round, cardsToPlay, topPlay, topPlayPatternName);
+        }
+
+        cardPatternResult.setResult("REPLAY");
+        return cardPatternResult;
     }
 
-    public abstract String getCardPatternName(List<Card> cards);
+    /**
+     * 如果cardsToPlay是此handler牌型，回傳牌型名稱，否則回傳空字串
+     * @param cardsToPlay
+     * @return
+     */
+    protected abstract String getPatternName(List<Card> cardsToPlay);
 
-    public boolean canHandle(String topPlayPattern, String cardsToPlayPattern) {
-        return "ALL-ALLOWED".equals(topPlayPattern) || topPlayPattern.equals(cardsToPlayPattern);
-    }
+    public abstract boolean compare(List<Card> cardsToPlay, List<Card> topPlay);
 
-    public abstract boolean compare(List<Card> cards1, List<Card> cards2);
 
 }

@@ -8,13 +8,14 @@ public class FullHouse extends CardPattern {
     }
 
     @Override
-    public String getCardPatternName(List<Card> cards) {
+    protected String getPatternName(List<Card> cardsToPlay) {
         return null;
     }
 
+
     @Override
-    public boolean compare(List<Card> cards1, List<Card> cards2) {
-        return true;
+    public boolean compare(List<Card> cardsToPlay, List<Card> topPlay) {
+        return false;
     }
 
 

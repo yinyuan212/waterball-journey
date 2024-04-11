@@ -22,13 +22,40 @@ public abstract class Player {
 
 
 
-    public List<Card> play(int round, int playerIndex, List<Card> topPlay) {
+    public CardPatternResult play(int round, List<Card> topPlay, String topPatternName) {
         System.out.println(String.format("It's %s's turn.", name));
 
+        List<Card> cards = handCards.getCards();
+        printHandCards(cards);
+
+        String line = scanner.nextLine();
+        List<Integer> cardIndex = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+
+        List<Card> cardsToPlay = cardIndex.stream()
+                .filter(index -> index != -1)
+                .map(cards::get)
+                .collect(Collectors.toList());
+
+        CardPatternResult cardPatternResult = cardPattern.handle(round, cardsToPlay, topPlay, topPatternName);
+        String result = cardPatternResult.getResult();
+
+        if (result.equals("carsToPlay_WIN")) {
+            handCards.removeCards(cardIndex);
+        }
+
+        if (result.equals("REPLAY")) {
+            return play(round, topPlay, topPatternName);
+        }
+
+
+        return cardPatternResult;
+    }
+
+    private void printHandCards(List<Card> cards) {
         StringBuilder handCardsIndex = new StringBuilder();
         StringBuilder handCardsValue = new StringBuilder();
 
-        List<Card> cards = handCards.getCards();
+
         for (int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
             handCardsIndex.append(String.format("%-" + card.toString().length() + "s ", i));
@@ -37,23 +64,6 @@ public abstract class Player {
 
         System.out.println(handCardsIndex);
         System.out.println(handCardsValue);
-
-        String line = scanner.nextLine();
-        List<Integer> cardIndex = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-
-        if (cardIndex.size() != 1 || cardIndex.get(0) == -1) {
-            List<Card> cardsToPlay = cardIndex.stream()
-                    .map(cards::get)
-                    .collect(Collectors.toList());
-
-            // if handle return true, means cardsToPlay is valid and bigger than topPlay
-            // else return false. topPlay keeps unchanged
-            if (cardPattern.isCardsToPlayBiggerThanTopPay(round, playerIndex, topPlay, cardsToPlay)) {
-                return cardsToPlay;
-            }
-        }
-
-        return null;
     }
 
 
