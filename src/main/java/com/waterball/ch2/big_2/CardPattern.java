@@ -33,14 +33,12 @@ public abstract class CardPattern {
      */
     public CardPatternResult handle(int round, List<Card> cardsToPlay, List<Card> topPlay, String topPlayPatternName) {
 
-
-
         CardPatternResult cardPatternResult = new CardPatternResult();
         cardPatternResult.setTopPlay(topPlay);
 
         // 第一回合的第一輪，一定要打梅花3
         if (round == 1 && topPlay == null && !cardsToPlay.stream().anyMatch(card -> card.getRank() == Card.Rank.R3 && card.getSuit() == Card.Suit.CLUB)) {
-            cardPatternResult.setResult("REPLAY");
+            cardPatternResult.setResult("CANNOT_PASS");
             return cardPatternResult;
         }
 
@@ -67,13 +65,13 @@ public abstract class CardPattern {
         if ("".equals(topPlayPatternName)) {
             cardPatternResult.setTopPlayName(cardsToPlayPatternName);
             cardPatternResult.setTopPlay(cardsToPlay);
-            cardPatternResult.setResult("carsToPlay_WIN");
+            cardPatternResult.setResult("cardsToPlay_WIN");
             return cardPatternResult;
         } else if (cardsToPlayPatternName.equals(topPlayPatternName)) {
-            if(compare(cardsToPlay, topPlay)) {
+            if (compare(cardsToPlay, topPlay)) {
                 cardPatternResult.setTopPlayName(cardsToPlayPatternName);
                 cardPatternResult.setTopPlay(cardsToPlay);
-                cardPatternResult.setResult("carsToPlay_WIN");
+                cardPatternResult.setResult("cardsToPlay_WIN");
                 return cardPatternResult;
             } else {
                 cardPatternResult.setResult("REPLAY");
@@ -94,7 +92,30 @@ public abstract class CardPattern {
      */
     protected abstract String getPatternName(List<Card> cardsToPlay);
 
-    public abstract boolean compare(List<Card> cardsToPlay, List<Card> topPlay);
+    public boolean compare(List<Card> cardsToPlay, List<Card> topPlay) {
+        // 第一輪的情境
+        if (topPlay == null) {
+            return true;
+        }
+
+        int keyCardIndex = getKeyCardIndex();
+
+        int rankComparison = Integer.compare(cardsToPlay.get(keyCardIndex).getRank().ordinal(), topPlay.get(keyCardIndex).getRank().ordinal());
+        if (rankComparison < 0) {
+            return false;
+        } else if (rankComparison == 0) {
+            int suitComparison = Integer.compare(cardsToPlay.get(keyCardIndex).getSuit().getOrder(), topPlay.get(keyCardIndex).getSuit().getOrder());
+            if (suitComparison < 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    protected abstract int getKeyCardIndex();
 
 
 }

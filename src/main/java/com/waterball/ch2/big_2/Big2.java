@@ -86,7 +86,7 @@ public class Big2 {
             String result = cardPatternResult.getResult();
 
             // 有打出對的牌
-            if ("carsToPlay_WIN".equals(result)) {
+            if ("cardsToPlay_WIN".equals(result)) {
                 topPlay = cardPatternResult.getTopPlay();
                 topPlayer = player;
                 topPatternName = cardPatternResult.getTopPlayName();
@@ -99,7 +99,7 @@ public class Big2 {
             }
 
             if (player.getHandCards().isEmpty()) {
-                System.out.println(String.format("Player %s wins", topPlayer.getName()));
+                System.out.println(String.format("Game over. Player %s wins", topPlayer.getName()));
                 return;
             }
         }

@@ -20,9 +20,8 @@ public class Pair extends CardPattern {
 
 
     @Override
-    public boolean compare(List<Card> cardsToPlay, List<Card> topPlay) {
-        return true;
+    protected int getKeyCardIndex() {
+        return 1;
     }
-
 
 }

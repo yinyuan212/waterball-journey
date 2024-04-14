@@ -26,7 +26,8 @@ public class HandCards {
 
     public void removeCards(List<Integer> cardIndex) {
         for (int i = cardIndex.size()-1 ; i >= 0; i--) {
-            cards.remove(i);
+            int index = cardIndex.get(i);
+            cards.remove(index);
         }
     }
 }

@@ -22,8 +22,7 @@ public class Straight extends CardPattern {
     }
 
     @Override
-    public boolean compare(List<Card> cardsToPlay, List<Card> topPlay) {
-        return false;
+    protected int getKeyCardIndex() {
+        return 4;
     }
-
 }

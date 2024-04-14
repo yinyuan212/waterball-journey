@@ -9,14 +9,27 @@ public class FullHouse extends CardPattern {
 
     @Override
     protected String getPatternName(List<Card> cardsToPlay) {
-        return null;
+        int rank1 = cardsToPlay.get(0).getRank().ordinal();
+        int rank2 = cardsToPlay.get(4).getRank().ordinal();
+
+        // cardToPlay contains 3 of rank1 and 2 of rank2
+        // or contains 2 of rank1 and 3 of rank2
+        if (cardsToPlay.size() == 5 &&
+            ((cardsToPlay.get(0).getRank().ordinal() == rank1 && cardsToPlay.get(1).getRank().ordinal() == rank1 && cardsToPlay.get(2).getRank().ordinal() == rank1 &&
+        cardsToPlay.get(3).getRank().ordinal() == rank2 && cardsToPlay.get(4).getRank().ordinal() == rank2) ||
+            (cardsToPlay.get(0).getRank().ordinal() == rank2 && cardsToPlay.get(1).getRank().ordinal() == rank2 && cardsToPlay.get(2).getRank().ordinal() == rank1 &&
+        cardsToPlay.get(3).getRank().ordinal() == rank1 && cardsToPlay.get(4).getRank().ordinal() == rank1))
+        ) {
+            return "FullHouse";
+        }
+
+        return "";
     }
 
 
     @Override
-    public boolean compare(List<Card> cardsToPlay, List<Card> topPlay) {
-        return false;
+    protected int getKeyCardIndex() {
+        return 2;
     }
-
 
 }

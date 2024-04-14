@@ -39,11 +39,28 @@ public abstract class Player {
         CardPatternResult cardPatternResult = cardPattern.handle(round, cardsToPlay, topPlay, topPatternName);
         String result = cardPatternResult.getResult();
 
-        if (result.equals("carsToPlay_WIN")) {
+        if (result.equals("cardsToPlay_WIN")) {
+            StringBuilder cardsToPlayIndex = new StringBuilder();
+            cardsToPlayIndex.append(String.format("%s plays %s ", name, cardPatternResult.getTopPlayName()));
+            for (Card card : cardPatternResult.getTopPlay()) {
+                cardsToPlayIndex.append(String.format("%s ", card));
+            }
+
+            System.out.println(cardsToPlayIndex);
             handCards.removeCards(cardIndex);
         }
 
+
+        if (result.equals("PASS")) {
+            System.out.println(String.format( "Player %s pass.", name));
+        }
+
+        if (result.equals("CANNOT_PASS")) {
+            System.out.println(String.format("Player %s cannot pass in new round.", name));
+        }
+
         if (result.equals("REPLAY")) {
+            System.out.println("It's invalid. Please try again.");
             return play(round, topPlay, topPatternName);
         }
 

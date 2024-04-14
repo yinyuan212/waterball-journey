@@ -31,9 +31,6 @@ public class Deck {
         return cardStack.pop();
     }
 
-    public void shuffle() {
-        Collections.shuffle(cardStack);
-    }
 
     public boolean isEmpty() {
         return cardStack.isEmpty();
