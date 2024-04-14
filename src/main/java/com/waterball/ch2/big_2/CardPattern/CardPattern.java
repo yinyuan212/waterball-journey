@@ -1,6 +1,9 @@
-package com.waterball.ch2.big_2;
+package com.waterball.ch2.big_2.CardPattern;
 
 
+
+import com.waterball.ch2.big_2.Card;
+import com.waterball.ch2.big_2.CardPatternResult;
 
 import java.util.List;
 

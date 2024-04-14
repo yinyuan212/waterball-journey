@@ -1,6 +1,7 @@
 package com.waterball.ch2.big_2;
 
-import java.io.UnsupportedEncodingException;
+import com.waterball.ch2.big_2.CardPattern.CardPattern;
+
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {

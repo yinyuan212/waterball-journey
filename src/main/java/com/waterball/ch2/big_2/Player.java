@@ -1,5 +1,7 @@
 package com.waterball.ch2.big_2;
 
+import com.waterball.ch2.big_2.CardPattern.CardPattern;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
